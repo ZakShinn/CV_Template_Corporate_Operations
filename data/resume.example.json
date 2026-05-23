@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema/resume.schema.json",
+  "version": "1.0.0",
+  "locale": "en",
+  "personal": {
+    "fullName": "Your Full Name",
+    "jobTitle": "Operations Manager | IT & Business Operations",
+    "avatar": "/avatar-placeholder.svg",
+    "contact": {
+      "email": "you@email.com",
+      "phone": "+1 000 000 0000",
+      "linkedin": "linkedin.com/in/yourprofile",
+      "github": "github.com/yourusername",
+      "portfolio": "yourportfolio.com",
+      "location": "City, Country"
+    }
+  },
+  "summary": "Impact-driven operations professional with expertise in enterprise IT, SLA management, and cross-functional delivery. Seeking senior corporate operations roles.",
+  "experience": [],
+  "skills": {
+    "technical": [],
+    "soft": [],
+    "tools": [],
+    "infrastructure": [],
+    "management": []
+  },
+  "education": [],
+  "certifications": [],
+  "projects": [],
+  "languages": []
+}
