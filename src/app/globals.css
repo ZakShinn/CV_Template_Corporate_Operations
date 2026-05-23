@@ -25,7 +25,7 @@
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased bg-transparent;
   }
 }
 
@@ -51,6 +51,10 @@
   @page {
     size: A4 portrait;
     margin: 12mm 14mm;
+  }
+
+  .app-page-background {
+    display: none !important;
   }
 
   body {

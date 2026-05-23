@@ -13,7 +13,7 @@ export function ProfileScoreCard({ resume, locale }: ProfileScoreCardProps) {
   const { percentage, tips } = calculateProfileStrength(resume);
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+    <div className="rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm p-4">
       <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
           {t(locale, "profileStrength")}

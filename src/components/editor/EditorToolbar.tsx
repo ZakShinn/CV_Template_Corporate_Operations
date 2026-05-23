@@ -45,7 +45,7 @@ export function EditorToolbar({ cvRef }: EditorToolbarProps) {
   };
 
   return (
-    <div className="no-print sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md">
+    <div className="no-print sticky top-0 z-50 border-b border-slate-200/80 dark:border-slate-700/80 bg-white/75 dark:bg-slate-950/75 backdrop-blur-xl backdrop-saturate-150">
       <div className="mx-auto max-w-7xl px-4 py-3 flex flex-wrap items-center gap-3 justify-between">
         <div className="flex items-center gap-2">
           <LayoutTemplate className="h-5 w-5 text-corporate-navy dark:text-slate-300" />

@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { CVDocument } from "@/components/cv/CVDocument";
+import { PageBackground } from "@/components/layout/PageBackground";
 import { EditorToolbar } from "@/components/editor/EditorToolbar";
 import { EditorSidebar } from "@/components/editor/EditorSidebar";
 import { appConfig } from "@/config/app";
@@ -18,7 +19,8 @@ export default function HomePage() {
   }, [settings.theme, setTheme]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col">
+      <PageBackground />
       <EditorToolbar cvRef={cvRef} />
 
       <main className="flex-1 mx-auto w-full max-w-7xl px-4 py-8">
@@ -30,7 +32,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      <footer className="no-print border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500">
+      <footer className="no-print border-t border-slate-200/60 dark:border-slate-700/60 bg-white/40 dark:bg-slate-950/40 backdrop-blur-sm py-6 text-center text-xs text-slate-500 dark:text-slate-400">
         {appConfig.footer}
       </footer>
     </div>

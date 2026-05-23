@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang={appConfig.htmlLang} suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-sans bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100`}
+        className={`${inter.variable} font-sans bg-transparent text-slate-900 dark:text-slate-100`}
         style={
           {
             "--cv-bg": cssVariables.light.cvBg,

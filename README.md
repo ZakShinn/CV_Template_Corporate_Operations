@@ -9,13 +9,24 @@ npm install
 npm run dev
 ```
 
+## Hướng dẫn cập nhật (chi tiết)
+
+📄 **[src/Huong_dan_cap_nhat.md](src/Huong_dan_cap_nhat.md)** — mục lục tổng.
+
+| Thư mục | File hướng dẫn |
+|---------|----------------|
+| `src/data/` | [Huong_dan_cap_nhat.md](src/data/Huong_dan_cap_nhat.md) — nội dung CV |
+| `src/config/` | [Huong_dan_cap_nhat.md](src/config/Huong_dan_cap_nhat.md) — màu, UI, layout |
+| `src/app/` | [Huong_dan_cap_nhat.md](src/app/Huong_dan_cap_nhat.md) — **font**, CSS in |
+| `public/` | [Huong_dan_cap_nhat.md](public/Huong_dan_cap_nhat.md) — **avatar**, file tĩnh |
+
 ## Cấu trúc dữ liệu & cấu hình (trong `src/`)
 
 | Đường dẫn | Mục đích |
 |-----------|----------|
 | `src/data/resume.ts` | **Nội dung CV** — họ tên, kinh nghiệm, kỹ năng, học vấn… |
-| `src/data/resume.template.json` | Template JSON trống |
-| `src/data/resume.schema.json` | JSON Schema |
+| `src/data/resume.template.ts` | Khung CV trống (TypeScript) |
+| `src/data/resume.schema.ts` | Mô tả cấu trúc dữ liệu |
 | `src/config/colors.ts` | **Bảng màu** corporate (navy, blue, slate, emerald…) |
 | `src/config/cv-defaults.ts` | Layout mặc định, thứ tự section, theme |
 | `src/config/app.ts` | Tên app, locale mặc định `vi`, metadata |

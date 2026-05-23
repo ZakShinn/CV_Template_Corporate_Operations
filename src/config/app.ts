@@ -9,7 +9,7 @@ export const appConfig = {
   defaultLocale: "vi" as Locale,
   htmlLang: "vi",
   version: "1.0.0",
-  schemaPath: "/src/data/resume.schema.json",
+  schemaPath: "/src/data/resume.schema.ts",
   schemaUrl: "https://corporate-ops-cv.dev/schema/v1",
   avatarDefault: "/avatar-placeholder.svg",
   export: {

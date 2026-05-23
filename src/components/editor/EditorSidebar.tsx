@@ -14,7 +14,7 @@ export function EditorSidebar() {
         <ProfileScoreCard resume={resume} locale={settings.locale} />
       )}
 
-      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+      <div className="rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">
           {ui.sidebar.sectionOrder}
         </h3>
@@ -25,7 +25,7 @@ export function EditorSidebar() {
         />
       </div>
 
-      <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+      <div className="rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
           {ui.sidebar.summaryPreview}
         </h3>
