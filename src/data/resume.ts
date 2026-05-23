@@ -2,7 +2,10 @@ import { appConfig } from "@/config/app";
 import type { ResumeData } from "@/types/resume";
 
 /**
- * Dữ liệu CV mẫu — chỉnh toàn bộ thông tin tại file này
+ * Dữ liệu CV mẫu — Corporate Operations
+ *
+ * Hướng dẫn: src/data/HUONG_DAN_NHAP_LIEU.md
+ * Ảnh: src/avatar/config.ts · Màu: src/color/theme.ts · Font: src/font/config.ts
  */
 export const resumeData: ResumeData = {
   $schema: appConfig.schemaUrl,
@@ -11,7 +14,7 @@ export const resumeData: ResumeData = {
   personal: {
     fullName: "Nguyễn Minh Anh",
     jobTitle: "Quản lý Vận hành Cao cấp | IT & Vận hành Doanh nghiệp",
-    avatar: appConfig.avatarDefault,
+    avatar: "",
     contact: {
       email: "minh.anh.nguyen@email.com",
       phone: "+84 90 123 4567",

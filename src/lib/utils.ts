@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { accentColorStyles } from "@/config/colors";
+import { accentColorStyles } from "@/color/theme";
 import { t } from "@/config/i18n";
 import type { AccentColor, Locale } from "@/types/resume";
 

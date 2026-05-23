@@ -1,17 +1,17 @@
-import { appConfig } from "@/config/app";
 import type { ResumeData } from "@/types/resume";
 
 /**
- * Khung CV trống — copy nội dung sang resume.ts hoặc gán vào store
+ * Khung CV trống — copy sang resume.ts hoặc gán vào store
+ * Ảnh mặc định: src/avatar/config.ts · Hướng dẫn: src/data/HUONG_DAN_NHAP_LIEU.md
  */
 export const resumeTemplate: ResumeData = {
-  $schema: appConfig.schemaUrl,
-  version: appConfig.version,
+  $schema: "https://corporate-ops-cv.dev/schema/v1",
+  version: "1.0.0",
   locale: "vi",
   personal: {
     fullName: "Họ và Tên",
     jobTitle: "Quản lý Vận hành | IT & Vận hành Doanh nghiệp",
-    avatar: appConfig.avatarDefault,
+    avatar: "",
     contact: {
       email: "email@congty.com",
       phone: "+84 000 000 0000",

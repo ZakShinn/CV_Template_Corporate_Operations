@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { appConfig } from "@/config/app";
-import { cssVariables } from "@/config/colors";
+import { getThemeCssBlock } from "@/color/theme";
+import { getFontCssBlock } from "@/font/config";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
-  variable: "--font-inter",
+  variable: "--font-inter", // khớp fonts.sans.variable trong src/font/config.ts
   display: "swap",
 });
 
@@ -23,17 +24,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={appConfig.htmlLang} suppressHydrationWarning>
+      <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `${getThemeCssBlock()}\n${getFontCssBlock()}`,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} font-sans bg-transparent text-slate-900 dark:text-slate-100`}
-        style={
-          {
-            "--cv-bg": cssVariables.light.cvBg,
-            "--cv-fg": cssVariables.light.cvFg,
-            "--cv-muted": cssVariables.light.cvMuted,
-            "--cv-border": cssVariables.light.cvBorder,
-            "--cv-accent": cssVariables.light.cvAccent,
-          } as React.CSSProperties
-        }
       >
         <ThemeProvider>{children}</ThemeProvider>
       </body>

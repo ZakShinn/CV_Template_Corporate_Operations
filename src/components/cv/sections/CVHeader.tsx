@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Mail, Phone, MapPin, Linkedin, Github, Globe } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
+import { avatarConfig, resolveAvatarSrc } from "@/avatar/config";
 import { t } from "@/config/i18n";
 import { cn, ensureUrl, accentClasses } from "@/lib/utils";
 import type { PersonalInfo, CVSettings } from "@/types/resume";
@@ -17,6 +18,8 @@ export function CVHeader({ personal, settings, contactUrl }: CVHeaderProps) {
   const { theme, accent, variant, showQRCode } = settings;
   const colors = accentClasses(accent, theme);
   const { contact } = personal;
+  const avatarSrc = resolveAvatarSrc(personal.avatar);
+  const avatarAlt = avatarConfig.alt || `${personal.fullName} professional photo`;
 
   const links = [
     { icon: Mail, label: contact.email, href: `mailto:${contact.email}` },
@@ -57,21 +60,23 @@ export function CVHeader({ personal, settings, contactUrl }: CVHeaderProps) {
           isExecutive ? "flex-col items-center text-center" : "flex-row items-start"
         )}
       >
-        {personal.avatar && (
+        {avatarSrc && (
           <div
             className={cn(
               "relative shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800",
               isExecutive ? "h-24 w-24" : "h-20 w-20",
-              isMinimal && "rounded-full"
+              isMinimal && "rounded-full",
+              avatarConfig.hideInPrint && "no-print"
             )}
           >
             <Image
-              src={personal.avatar}
-              alt={`${personal.fullName} professional photo`}
+              src={avatarSrc}
+              alt={avatarAlt}
               fill
               className="object-cover"
+              style={{ objectFit: avatarConfig.objectFit }}
               priority
-              unoptimized={personal.avatar.endsWith(".svg")}
+              unoptimized={avatarSrc.endsWith(".svg")}
             />
           </div>
         )}
