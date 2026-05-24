@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { appConfig } from "@/config/app";
+import { DEFAULT_AVATAR_SRC } from "@/avatar/config";
 import { resumeData } from "@/data/resume";
 import { getThemeCssBlock } from "@/color/theme";
 import { getFontCssBlock } from "@/font/config";
@@ -31,6 +32,11 @@ export const metadata: Metadata = {
     description: appConfig.description,
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: DEFAULT_AVATAR_SRC,
+    shortcut: DEFAULT_AVATAR_SRC,
+    apple: DEFAULT_AVATAR_SRC,
+  },
 };
 
 const personJsonLd = buildPersonJsonLd({

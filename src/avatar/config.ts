@@ -16,7 +16,7 @@ export interface AvatarConfig {
   hideInPrint: boolean;
 }
 
-export const DEFAULT_AVATAR_SRC = "/avatar/anh_dai_dien.png";
+export const DEFAULT_AVATAR_SRC = "/avatar/anh_dai_dien.png"; // CV + favicon
 
 export const avatarConfig: AvatarConfig = {
   enabled: true,
