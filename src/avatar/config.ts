@@ -16,17 +16,19 @@ export interface AvatarConfig {
   hideInPrint: boolean;
 }
 
+export const DEFAULT_AVATAR_SRC = "/avatar-placeholder.svg";
+
 export const avatarConfig: AvatarConfig = {
   enabled: true,
-  src: "/avatar-placeholder.svg",
-  alt: "Ảnh đại diện chuyên nghiệp",
+  src: DEFAULT_AVATAR_SRC,
+  alt: "Ảnh đại diện chuyên nghiệp — thay bằng ảnh của bạn",
   objectFit: "cover",
   hideInPrint: false,
 };
 
 export function resolveAvatarSrc(resumeAvatar?: string): string {
-  if (avatarConfig.enabled && avatarConfig.src) {
-    return avatarConfig.src;
-  }
-  return resumeAvatar?.trim() ?? "";
+  if (!avatarConfig.enabled) return "";
+  if (avatarConfig.src.trim()) return avatarConfig.src;
+  if (resumeAvatar?.trim()) return resumeAvatar.trim();
+  return DEFAULT_AVATAR_SRC;
 }

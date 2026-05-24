@@ -64,13 +64,13 @@ export function CVHeader({ personal, settings, contactUrl }: CVHeaderProps) {
           isExecutive ? "flex-col items-center text-center" : "flex-row items-start"
         )}
       >
-        {avatarSrc && (
+        {avatarConfig.enabled && (
           <div
             className={cn(
               "relative shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800",
               isExecutive ? "h-24 w-24" : "h-20 w-20",
               isMinimal && "rounded-full",
-              avatarConfig.hideInPrint && "no-print"
+              avatarConfig.hideInPrint && "no-print",
             )}
           >
             <Image
