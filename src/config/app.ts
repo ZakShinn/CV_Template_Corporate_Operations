@@ -13,7 +13,7 @@ export const appConfig = {
   schemaPath: "/src/data/resume.schema.ts",
   schemaUrl: "https://corporate-ops-cv.dev/schema/v1",
   /** Ảnh mặc định — cấu hình chính tại src/avatar/config.ts */
-  avatarDefault: "/avatar-placeholder.svg",
+  avatarDefault: "/avatar/anh_dai_dien.png",
   export: {
     pdfPrefix: "cv-",
     docxPrefix: "cv-",

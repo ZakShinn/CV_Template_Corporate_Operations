@@ -40,7 +40,7 @@ CV hiển thị header không ảnh (variant executive vẫn có thể dùng lay
 
 ## Placeholder
 
-`public/avatar-placeholder.svg` — đổi `src` khi có ảnh thật.
+`public/avatar/anh_dai_dien.png` — thay file hoặc đổi `src` trong `config.ts`.
 
 ## Tuỳ chọn `config.ts`
 

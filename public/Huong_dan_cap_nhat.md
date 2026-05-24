@@ -6,7 +6,7 @@ Thư mục này chứa **file tĩnh** phục vụ trực tiếp qua URL (ảnh, 
 
 | File | Mục đích |
 |------|----------|
-| `avatar-placeholder.svg` | Ảnh mặc định khi chưa có ảnh thật |
+| `avatar/anh_dai_dien.png` | Ảnh đại diện mặc định |
 
 ---
 
@@ -19,7 +19,8 @@ Ví dụ:
 ```
 public/
   avatar.jpg          ← ảnh của bạn
-  avatar-placeholder.svg
+  avatar/
+    anh_dai_dien.png
 ```
 
 **Khuyến nghị:**
