@@ -18,6 +18,10 @@ export default function HomePage() {
     setTheme(settings.theme);
   }, [settings.theme, setTheme]);
 
+  useEffect(() => {
+    document.documentElement.lang = settings.locale;
+  }, [settings.locale]);
+
   return (
     <div className="relative min-h-screen flex flex-col">
       <PageBackground />

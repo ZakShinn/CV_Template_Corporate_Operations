@@ -6,6 +6,7 @@ export const appConfig = {
   shortName: "CV Corporate Operations",
   description:
     "Mẫu CV chuyên nghiệp, tối ưu ATS dành cho Quản lý Vận hành, IT Operations, Business Operations và các vị trí enterprise.",
+  siteUrl: "https://corporate-ops-cv.example.com",
   defaultLocale: "vi" as Locale,
   htmlLang: "vi",
   version: "1.0.0",
