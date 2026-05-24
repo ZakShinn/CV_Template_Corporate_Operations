@@ -10,25 +10,31 @@ interface TwoColumnLayoutProps {
   variant: CVVariant;
 }
 
+/** Layout hai cột chuẩn vận hành: sidebar trái (skills, certs), nội dung chính phải */
 export function TwoColumnLayout({ main, sidebar, variant }: TwoColumnLayoutProps) {
   return (
     <div
       className={cn(
         "grid gap-8",
-        "grid-cols-1 lg:grid-cols-[1fr_280px]",
+        "grid-cols-1 lg:grid-cols-[260px_1fr]",
         variant === "executive" && "lg:grid-cols-1",
-        "print:grid-cols-[1fr_240px] print:gap-6"
+        "print:grid-cols-[220px_1fr] print:gap-6"
       )}
     >
-      <div className="min-w-0 space-y-0">{main}</div>
       {variant !== "executive" && (
         <aside
-          className="min-w-0 space-y-0 lg:border-l lg:pl-8 border-slate-200 dark:border-slate-700 print:border-l print:pl-6"
+          className={cn(
+            "min-w-0 space-y-0 order-2 lg:order-1",
+            "lg:border-r lg:pr-8 border-slate-200 dark:border-slate-700",
+            "lg:bg-gradient-to-b lg:from-slate-50/80 lg:to-transparent dark:lg:from-slate-800/40",
+            "print:border-r print:pr-6"
+          )}
           aria-label="Sidebar sections"
         >
           {sidebar}
         </aside>
       )}
+      <div className="min-w-0 space-y-0 order-1 lg:order-2">{main}</div>
     </div>
   );
 }

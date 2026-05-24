@@ -2,12 +2,29 @@
 
 Font sans mặc định: **Inter** — [`config.ts`](./config.ts).
 
-## Đổi font
+## Cách đổi
 
-1. Sửa `family` trong `src/font/config.ts`.
-2. Đổi import `next/font/google` trong `src/app/layout.tsx`.
-3. Cập nhật `tailwind.config.ts` → `fontFamily.sans` nếu cần fallback.
+1. Chọn font trên [Google Fonts](https://fonts.google.com/) — ưu tiên có **Vietnamese**.
+2. Sửa `family` trong `src/font/config.ts`.
+3. Đổi import `next/font/google` trong `src/app/layout.tsx` cho khớp tên font.
+4. Cập nhật `tailwind.config.ts` → `fontFamily.sans` nếu cần fallback.
+5. Lưu file và làm mới trình duyệt.
+
+## Dùng ở đâu
+
+| Vai trò | Vị trí |
+|---------|--------|
+| Sans | Body CV, toolbar, sidebar editor |
+| Semibold | Tiêu đề section, họ tên |
+
+## Variant `tech-operations`
+
+Dùng `font-mono` trên toàn CV — đổi font mono trong `config.ts` nếu cần (Fira Code, JetBrains Mono…).
 
 ## Tiếng Việt
 
-Dùng font có subset **vietnamese** (Inter đã bật trong layout).
+Inter đã bật subset **vietnamese** trong layout. Font mới phải hỗ trợ tiếng Việt trên Google Fonts.
+
+## Không cần sửa
+
+Component React — font áp dụng qua CSS variable từ `layout.tsx`.

@@ -26,10 +26,14 @@ export function ExperienceSection({ experience, settings }: ExperienceSectionPro
         {experience.map((job) => (
           <article
             key={job.id}
-            className="group"
+            className="group relative border-l-2 border-slate-200 pl-4 dark:border-slate-700"
             itemScope
             itemType="https://schema.org/OrganizationRole"
           >
+            <span
+              className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-500 ring-2 ring-white dark:ring-slate-900"
+              aria-hidden
+            />
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <div>
                 <h3

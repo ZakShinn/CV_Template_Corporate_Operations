@@ -53,9 +53,11 @@ Nếu `resume.ts` dùng `avatar: appConfig.avatarDefault` thì chỉ cần sửa
 
 ### Bước 4 — Kiểm tra
 
-1. `npm run dev`
-2. Mở http://localhost:3000 — xem góc header CV.
+1. Lưu file và làm mới trình duyệt trên trang xem CV.
+2. Xem góc header CV — ảnh phải hiện đúng vị trí.
 3. Nếu ảnh không hiện: kiểm tra tên file, viết hoa/thường, và dấu `/` đầu đường dẫn (`"/avatar.jpg"`).
+
+Chi tiết thêm: [`src/avatar/HUONG_DAN_ANH_DAI_DIEN.md`](../src/avatar/HUONG_DAN_ANH_DAI_DIEN.md)
 
 ---
 
@@ -63,7 +65,7 @@ Nếu `resume.ts` dùng `avatar: appConfig.avatarDefault` thì chỉ cần sửa
 
 | File trong `public/` | URL trên trình duyệt |
 |----------------------|----------------------|
-| `avatar.jpg` | `http://localhost:3000/avatar.jpg` |
+| `avatar.jpg` | `/avatar.jpg` |
 | `fonts/MyFont.woff2` | `/fonts/MyFont.woff2` |
 
 Trong code luôn dùng dạng **`/ten-file.ext`** (không ghi `public/` trong đường dẫn).
@@ -78,7 +80,7 @@ public/fonts/
   MyCorporateFont-Bold.woff2
 ```
 
-Cấu hình trong [`src/app/layout.tsx`](../src/app/layout.tsx) với `next/font/local` — chi tiết tại [`src/app/Huong_dan_cap_nhat.md`](../src/app/Huong_dan_cap_nhat.md).
+Cấu hình trong `src/app/layout.tsx` với `next/font/local` — xem [`src/font/HUONG_DAN_DOI_FONT.md`](../src/font/HUONG_DAN_DOI_FONT.md).
 
 ---
 
@@ -89,7 +91,7 @@ Cấu hình trong [`src/app/layout.tsx`](../src/app/layout.tsx) với `next/font
 - `favicon.ico`
 - hoặc `icon.png` (theo quy ước Next.js App Router)
 
-Next.js tự nhận `app/icon.png` nếu bạn tạo thêm trong `src/app/` — có thể bổ sung sau.
+Next.js tự nhận `app/icon.png` nếu bạn tạo thêm trong `src/app/`.
 
 ---
 
@@ -104,5 +106,5 @@ Mọi file trong `public/` đều **công khai** khi deploy.
 
 ## Liên kết nhanh
 
-- Nội dung CV (tên, email bên cạnh avatar): [`src/data/Huong_dan_cap_nhat.md`](../src/data/Huong_dan_cap_nhat.md)
-- Mục lục tổng: [`src/Huong_dan_cap_nhat.md`](../src/Huong_dan_cap_nhat.md)
+- Nội dung CV: [`src/data/HUONG_DAN_NHAP_LIEU.md`](../src/data/HUONG_DAN_NHAP_LIEU.md)
+- Màu accent: [`src/color/HUONG_DAN_DOI_MAU.md`](../src/color/HUONG_DAN_DOI_MAU.md)

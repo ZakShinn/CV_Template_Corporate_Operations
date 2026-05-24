@@ -47,8 +47,8 @@ export function CVHeader({ personal, settings, contactUrl }: CVHeaderProps) {
 
   return (
     <header
-      className={cn(
-        "cv-section relative border-b pb-6 mb-6 overflow-hidden",
+        className={cn(
+          "cv-section relative border-b pb-6 mb-6 overflow-hidden pt-1",
         theme === "dark" ? "border-corporate-border-dark" : "border-corporate-border"
       )}
       itemScope

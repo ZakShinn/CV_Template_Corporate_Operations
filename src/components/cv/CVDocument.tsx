@@ -53,6 +53,7 @@ export const CVDocument = forwardRef<HTMLElement, CVDocumentProps>(
           "text-slate-900 dark:text-slate-100",
           "shadow-[0_32px_64px_-24px_rgba(15,23,42,0.2),0_0_0_1px_rgba(15,23,42,0.04)]",
           "rounded-xl ring-1 ring-slate-200/80 dark:ring-slate-700/60",
+          "relative overflow-hidden",
           "p-8 sm:p-10 md:p-12",
           "print:shadow-none print:rounded-none print:ring-0 print:p-0 print:max-w-none",
           variant === "executive" && "text-center sm:text-left",
@@ -67,6 +68,10 @@ export const CVDocument = forwardRef<HTMLElement, CVDocumentProps>(
         itemScope
         itemType="https://schema.org/Person"
       >
+        <div
+          className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-slate-300 via-corporate-navy to-slate-300 dark:from-slate-600 dark:via-slate-400 dark:to-slate-600 print:hidden"
+          aria-hidden
+        />
         <CVHeader
           personal={resume.personal}
           settings={settings}
