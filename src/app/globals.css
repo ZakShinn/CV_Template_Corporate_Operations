@@ -31,7 +31,7 @@
 
 @layer components {
   .cv-section-title {
-    @apply text-xs font-semibold uppercase tracking-widest;
+    @apply text-xs font-semibold uppercase tracking-[0.14em];
   }
 
   .cv-badge {

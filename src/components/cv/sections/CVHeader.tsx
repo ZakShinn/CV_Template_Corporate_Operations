@@ -48,15 +48,19 @@ export function CVHeader({ personal, settings, contactUrl }: CVHeaderProps) {
   return (
     <header
       className={cn(
-        "cv-section border-b pb-6 mb-6",
+        "cv-section relative border-b pb-6 mb-6 overflow-hidden",
         theme === "dark" ? "border-corporate-border-dark" : "border-corporate-border"
       )}
       itemScope
       itemType="https://schema.org/Person"
     >
       <div
+        className={cn("absolute top-0 left-0 right-0 h-1", colors.bar)}
+        aria-hidden
+      />
+      <div
         className={cn(
-          "flex gap-6",
+          "flex gap-6 pt-3",
           isExecutive ? "flex-col items-center text-center" : "flex-row items-start"
         )}
       >
