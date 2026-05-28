@@ -2,7 +2,8 @@
 
 import { SectionHeading } from "../ui/SectionHeading";
 import { cn, accentClasses } from "@/lib/utils";
-import { sectionTitle } from "@/config/i18n";
+import { resumeAdvancedDisplay } from "@/resume-advanced";
+import { sectionTitle } from "@/config";
 import type { CVSettings, Language } from "@/types/resume";
 
 interface LanguagesSectionProps {
@@ -12,7 +13,10 @@ interface LanguagesSectionProps {
 
 export function LanguagesSection({ languages, settings }: LanguagesSectionProps) {
   const colors = accentClasses(settings.accent, settings.theme);
-  const showBars = settings.variant !== "minimal";
+  if (!languages?.length) return null;
+
+  const showBars =
+    resumeAdvancedDisplay.showLanguageProgressBars && settings.variant !== "minimal";
 
   return (
     <section className="cv-section mb-6" aria-labelledby="section-languages">

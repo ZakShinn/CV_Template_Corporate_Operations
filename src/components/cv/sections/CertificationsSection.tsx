@@ -2,7 +2,7 @@
 
 import { SectionHeading } from "../ui/SectionHeading";
 import { cn, accentClasses } from "@/lib/utils";
-import { sectionTitle } from "@/config/i18n";
+import { sectionTitle } from "@/config";
 import type { CVSettings, Certification } from "@/types/resume";
 
 interface CertificationsSectionProps {
@@ -15,6 +15,7 @@ export function CertificationsSection({
   settings,
 }: CertificationsSectionProps) {
   const colors = accentClasses(settings.accent, settings.theme);
+  if (!certifications?.length) return null;
 
   return (
     <section className="cv-section mb-6" aria-labelledby="section-certifications">

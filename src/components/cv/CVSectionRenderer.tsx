@@ -7,6 +7,7 @@ import { SkillsSection } from "./sections/SkillsSection";
 import { EducationSection } from "./sections/EducationSection";
 import { CertificationsSection } from "./sections/CertificationsSection";
 import { ProjectsSection } from "./sections/ProjectsSection";
+import { InitiativesSection } from "./sections/InitiativesSection";
 import { LanguagesSection } from "./sections/LanguagesSection";
 
 interface CVSectionRendererProps {
@@ -38,6 +39,10 @@ export function CVSectionRenderer({
       );
     case "projects":
       return <ProjectsSection projects={resume.projects} settings={settings} />;
+    case "initiatives":
+      return (
+        <InitiativesSection initiatives={resume.initiatives} settings={settings} />
+      );
     case "languages":
       return <LanguagesSection languages={resume.languages} settings={settings} />;
     default:
@@ -45,4 +50,4 @@ export function CVSectionRenderer({
   }
 }
 
-export { sidebarSectionIds as SIDEBAR_SECTIONS } from "@/config/cv-defaults";
+export { sidebarSectionIds as SIDEBAR_SECTIONS } from "@/resume";

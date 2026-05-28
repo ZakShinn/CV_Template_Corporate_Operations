@@ -17,13 +17,17 @@ export type SectionId =
   | "education"
   | "certifications"
   | "projects"
+  | "initiatives"
   | "languages";
 
 export interface ContactInfo {
   email: string;
   phone: string;
+  dateOfBirth?: string;
   linkedin?: string;
   github?: string;
+  facebook?: string;
+  zalo?: string;
   portfolio?: string;
   location: string;
 }
@@ -31,6 +35,8 @@ export interface ContactInfo {
 export interface PersonalInfo {
   fullName: string;
   jobTitle: string;
+  /** Dòng phụ dưới chức danh, ví dụ: System Operations • Infrastructure */
+  tagline?: string;
   avatar?: string;
   contact: ContactInfo;
 }
@@ -60,10 +66,14 @@ export interface SkillItem {
 export interface Education {
   id: string;
   university: string;
+  /** Bậc học: Đại học, Cao đẳng, THPT, THCS, Tiểu học… */
   degree: string;
   major: string;
   gpa?: string;
+  /** Thời gian học, ví dụ: 2022 – 2024 */
   graduationYear: string;
+  /** Nội dung, hoạt động hoặc giai đoạn */
+  description?: string;
 }
 
 export interface Certification {
@@ -81,6 +91,17 @@ export interface Project {
   technologies: string[];
   achievements: string[];
   githubUrl?: string;
+}
+
+/** Đề án / chương trình / initiative (phần nâng cao) */
+export interface Initiative {
+  id: string;
+  name: string;
+  description: string;
+  organization?: string;
+  period?: string;
+  achievements: string[];
+  link?: string;
 }
 
 export interface Language {
@@ -107,6 +128,7 @@ export interface ResumeData {
   education: Education[];
   certifications: Certification[];
   projects: Project[];
+  initiatives: Initiative[];
   languages: Language[];
 }
 
@@ -121,8 +143,5 @@ export interface CVSettings {
   showProfileScore: boolean;
 }
 
-/** @deprecated Dùng `defaultSectionOrder` từ `@/config/cv-defaults` */
-export { defaultSectionOrder as DEFAULT_SECTION_ORDER } from "@/config/cv-defaults";
-
-/** @deprecated Dùng `defaultCVSettings` từ `@/config/cv-defaults` */
-export { defaultCVSettings as DEFAULT_CV_SETTINGS } from "@/config/cv-defaults";
+export { defaultSectionOrder as DEFAULT_SECTION_ORDER } from "@/config";
+export { defaultCVSettings as DEFAULT_CV_SETTINGS } from "@/config";

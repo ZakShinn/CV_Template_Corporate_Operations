@@ -7,7 +7,7 @@ import {
   AlignmentType,
 } from "docx";
 import { saveAs } from "file-saver";
-import { ui } from "@/config/ui";
+import { ui } from "@/config";
 import type { ResumeData } from "@/types/resume";
 import { formatDateRange } from "./utils";
 
@@ -131,19 +131,30 @@ export async function exportToDOCX(
   for (const edu of data.education) {
     children.push(
       new Paragraph({
-        children: [
-          new TextRun({ text: edu.degree, bold: true }),
-          new TextRun({ text: ` — ${edu.university}` }),
-        ],
+        children: [new TextRun({ text: edu.university, bold: true })],
       }),
       new Paragraph({
         children: [
           new TextRun({
-            text: `${edu.major}${edu.gpa ? ` | Điểm TB: ${edu.gpa}` : ""} | ${edu.graduationYear}`,
+            text: [
+              edu.degree,
+              edu.major ? `Chuyên ngành: ${edu.major}` : "",
+              edu.graduationYear ? `Thời gian: ${edu.graduationYear}` : "",
+              edu.gpa ? `Điểm TB: ${edu.gpa}` : "",
+            ]
+              .filter(Boolean)
+              .join(" | "),
           }),
         ],
       })
     );
+    if (edu.description) {
+      children.push(
+        new Paragraph({
+          children: [new TextRun({ text: edu.description, size: 20 })],
+        })
+      );
+    }
   }
 
   const doc = new Document({

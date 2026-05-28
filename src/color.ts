@@ -1,9 +1,6 @@
 /**
- * ═══════════════════════════════════════════════════════════════
- *  CẤU HÌNH MÀU — chỉnh tại file này
- *  Hướng dẫn: src/color/HUONG_DAN_DOI_MAU.md
- *  Đồng bộ với tailwind.config.ts
- * ═══════════════════════════════════════════════════════════════
+ * Màu sắc web & CV — hướng dẫn: src/huongdan.md (mục màu)
+ * Đồng bộ với tailwind.config.ts
  */
 
 export const corporateColors = {
@@ -27,9 +24,6 @@ export const corporateColors = {
   gray900: "#0f172a",
 } as const;
 
-export type AccentColorKey = keyof typeof accentColorStyles;
-
-/** Class Tailwind theo accent + theme (light/dark) */
 export const accentColorStyles = {
   navy: {
     light: {
@@ -97,7 +91,6 @@ export const accentColorStyles = {
   },
 } as const;
 
-/** Biến CSS cho theme sáng/tối */
 export const cssVariables = {
   light: {
     cvBg: corporateColors.white,
@@ -115,7 +108,6 @@ export const cssVariables = {
   },
 } as const;
 
-/** Màu cho Tailwind extend */
 export const tailwindCorporateColors = {
   corporate: {
     navy: corporateColors.navy,
@@ -128,7 +120,34 @@ export const tailwindCorporateColors = {
   },
 };
 
-/** Inject biến --cv-* (layout.tsx) */
+/** Nền trang (vùng ngoài khung CV) */
+export const pageBackground = {
+  light: {
+    baseFrom: "#f8fafc",
+    baseVia: "#f1f5f9",
+    baseTo: "#e2e8f0",
+    glowTop: "30, 64, 175",
+    glowTopOpacity: 0.07,
+    glowCorner: "15, 23, 42",
+    glowCornerOpacity: 0.05,
+    gridColor: "148, 163, 184",
+    gridOpacity: 0.35,
+    gridSize: 32,
+  },
+  dark: {
+    baseFrom: "#020617",
+    baseVia: "#0f172a",
+    baseTo: "#1e293b",
+    glowTop: "59, 130, 246",
+    glowTopOpacity: 0.12,
+    glowCorner: "148, 163, 184",
+    glowCornerOpacity: 0.06,
+    gridColor: "51, 65, 85",
+    gridOpacity: 0.45,
+    gridSize: 32,
+  },
+} as const;
+
 export function getThemeCssBlock(): string {
   const l = cssVariables.light;
   const d = cssVariables.dark;

@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
-import { sectionTitle } from "@/config/i18n";
+import { sectionTitle } from "@/config";
 import { cn } from "@/lib/utils";
 import type { SectionId, Locale } from "@/types/resume";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionHeading } from "../ui/SectionHeading";
-import { sectionTitle } from "@/config/i18n";
+import { sectionTitle } from "@/config";
 import type { CVSettings } from "@/types/resume";
 
 interface SummarySectionProps {
@@ -10,6 +10,8 @@ interface SummarySectionProps {
 }
 
 export function SummarySection({ summary, settings }: SummarySectionProps) {
+  if (!summary?.trim()) return null;
+
   return (
     <section className="cv-section mb-6" aria-labelledby="section-summary">
       <SectionHeading
@@ -19,12 +21,18 @@ export function SummarySection({ summary, settings }: SummarySectionProps) {
         accent={settings.accent}
         variant={settings.variant}
       />
-      <p
-        className="text-sm leading-relaxed text-slate-700 dark:text-slate-300"
+      <div
+        className="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300"
         itemProp="description"
       >
-        {summary}
-      </p>
+        {summary
+          .split(/\n\s*\n/)
+          .map((p) => p.trim())
+          .filter(Boolean)
+          .map((paragraph) => (
+            <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+          ))}
+      </div>
     </section>
   );
 }

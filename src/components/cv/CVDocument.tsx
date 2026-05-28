@@ -7,6 +7,7 @@ import { CVHeader } from "./sections/CVHeader";
 import { CVSectionRenderer, SIDEBAR_SECTIONS } from "./CVSectionRenderer";
 import { OneColumnLayout } from "./layouts/OneColumnLayout";
 import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
+import { filterVisibleSections } from "@/resume";
 import { ensureUrl } from "@/lib/utils";
 import type { ResumeData, CVSettings, SectionId } from "@/types/resume";
 
@@ -19,12 +20,17 @@ interface CVDocumentProps {
 export const CVDocument = forwardRef<HTMLElement, CVDocumentProps>(
   function CVDocument({ resume, settings, className }, ref) {
     const { layout, theme, variant } = settings;
-    const order = settings.sectionOrder;
+    const order = filterVisibleSections(settings.sectionOrder, resume);
 
-    const contactUrl =
-      resume.personal.contact.linkedin
-        ? ensureUrl(resume.personal.contact.linkedin)
-        : `mailto:${resume.personal.contact.email}`;
+    const contactUrl = resume.personal.contact.linkedin?.trim()
+      ? ensureUrl(resume.personal.contact.linkedin)
+      : resume.personal.contact.github?.trim()
+        ? ensureUrl(resume.personal.contact.github)
+        : resume.personal.contact.zalo?.trim()
+          ? ensureUrl(resume.personal.contact.zalo)
+          : resume.personal.contact.email?.trim()
+            ? `mailto:${resume.personal.contact.email.trim()}`
+            : undefined;
 
     const renderSection = (id: SectionId) => (
       <CVSectionRenderer key={id} sectionId={id} resume={resume} settings={settings} />

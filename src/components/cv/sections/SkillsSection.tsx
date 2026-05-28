@@ -2,7 +2,8 @@
 
 import { SectionHeading } from "../ui/SectionHeading";
 import { cn, accentClasses } from "@/lib/utils";
-import { sectionTitle, t } from "@/config/i18n";
+import { resumeAdvancedDisplay } from "@/resume-advanced";
+import { sectionTitle, t } from "@/config";
 import type { CVSettings, ResumeData } from "@/types/resume";
 
 interface SkillsSectionProps {
@@ -20,8 +21,18 @@ const SKILL_GROUPS = [
 
 export function SkillsSection({ skills, settings }: SkillsSectionProps) {
   const colors = accentClasses(settings.accent, settings.theme);
+  const totalSkills =
+    (skills?.technical?.length ?? 0) +
+    (skills?.soft?.length ?? 0) +
+    (skills?.tools?.length ?? 0) +
+    (skills?.infrastructure?.length ?? 0) +
+    (skills?.management?.length ?? 0);
+  if (totalSkills === 0) return null;
+
   const showBars =
-    settings.variant !== "minimal" && settings.variant !== "executive";
+    resumeAdvancedDisplay.showSkillProgressBars &&
+    settings.variant !== "minimal" &&
+    settings.variant !== "executive";
   const isTech = settings.variant === "tech-operations";
 
   return (

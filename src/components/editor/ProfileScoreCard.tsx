@@ -1,7 +1,7 @@
 "use client";
 
 import { calculateProfileStrength } from "@/lib/profile-score";
-import { t } from "@/config/i18n";
+import { t } from "@/config";
 import type { ResumeData, Locale } from "@/types/resume";
 
 interface ProfileScoreCardProps {

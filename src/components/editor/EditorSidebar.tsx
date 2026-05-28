@@ -1,29 +1,32 @@
 "use client";
 
 import { useCVStore } from "@/store/cv-store";
-import { ui } from "@/config/ui";
+import { configFeatures, ui } from "@/config";
 import { ProfileScoreCard } from "./ProfileScoreCard";
 import { SectionReorder } from "./SectionReorder";
 
 export function EditorSidebar() {
   const { resume, settings, reorderSections, setSettings } = useCVStore();
+  const f = configFeatures;
 
   return (
     <aside className="no-print w-full lg:w-72 shrink-0 space-y-4">
-      {settings.showProfileScore && (
+      {f.enableProfileScore && settings.showProfileScore && (
         <ProfileScoreCard resume={resume} locale={settings.locale} />
       )}
 
-      <div className="rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm p-4">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">
-          {ui.sidebar.sectionOrder}
-        </h3>
-        <SectionReorder
-          order={settings.sectionOrder}
-          locale={settings.locale}
-          onReorder={reorderSections}
-        />
-      </div>
+      {f.enableSectionReorder && (
+        <div className="rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm p-4">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">
+            {ui.sidebar.sectionOrder}
+          </h3>
+          <SectionReorder
+            order={settings.sectionOrder}
+            locale={settings.locale}
+            onReorder={reorderSections}
+          />
+        </div>
+      )}
 
       <div className="rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm p-4">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
@@ -34,15 +37,17 @@ export function EditorSidebar() {
         </p>
       </div>
 
-      <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={settings.showProfileScore}
-          onChange={(e) => setSettings({ showProfileScore: e.target.checked })}
-          className="rounded border-slate-300"
-        />
-        {ui.sidebar.showProfileScore}
-      </label>
+      {f.enableProfileScore && (
+        <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={settings.showProfileScore}
+            onChange={(e) => setSettings({ showProfileScore: e.target.checked })}
+            className="rounded border-slate-300"
+          />
+          {ui.sidebar.showProfileScore}
+        </label>
+      )}
     </aside>
   );
 }

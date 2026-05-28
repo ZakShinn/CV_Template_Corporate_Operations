@@ -2,10 +2,11 @@ import type { ResumeData } from "@/types/resume";
 
 export function generateAISummary(data: ResumeData): string {
   const years = estimateYearsExperience(data);
-  const firstName = data.personal.fullName.split(" ").slice(-1)[0] || data.personal.fullName;
+  const name = data.personal.fullName?.trim() || "Ứng viên";
+  const firstName = name.split(" ").slice(-1)[0] || name;
   const topRole = data.experience[0]?.position ?? data.personal.jobTitle;
   const companies = [...new Set(data.experience.map((e) => e.company))].slice(0, 2);
-  const techFocus = data.skills.technical
+  const techFocus = (data.skills?.technical ?? [])
     .slice(0, 3)
     .map((s) => s.name)
     .join(", ");

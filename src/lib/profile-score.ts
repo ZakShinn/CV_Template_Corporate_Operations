@@ -1,4 +1,5 @@
-import { ui } from "@/config/ui";
+import { avatar } from "@/avatar";
+import { ui } from "@/config";
 import type { ResumeData } from "@/types/resume";
 
 export interface ProfileScoreResult {
@@ -24,7 +25,7 @@ export function calculateProfileStrength(data: ResumeData): ProfileScoreResult {
   if (data.personal.contact.email && data.personal.contact.phone) score += 10;
   else tipList.push(tips.contact);
 
-  if (data.personal.avatar) score += 5;
+  if (avatar.enabled && avatar.src) score += 5;
   else tipList.push(tips.avatar);
 
   if (data.summary && data.summary.length >= 120) score += 15;
@@ -34,15 +35,17 @@ export function calculateProfileStrength(data: ResumeData): ProfileScoreResult {
   else tipList.push(tips.experience);
 
   const hasMetrics = data.experience.some((e) =>
-    e.achievements.some((a) => /\d+%|\d+\+|[\d,.]+\s*(triệu|tỷ|USD|VNĐ|\$)/i.test(a))
+    (e.achievements ?? []).some((a) =>
+      /\d+%|\d+\+|[\d,.]+\s*(triệu|tỷ|USD|VNĐ|\$)/i.test(a)
+    )
   );
   if (hasMetrics) score += 10;
   else tipList.push(tips.metrics);
 
   const skillCount =
-    data.skills.technical.length +
-    data.skills.soft.length +
-    data.skills.tools.length;
+    (data.skills?.technical?.length ?? 0) +
+    (data.skills?.soft?.length ?? 0) +
+    (data.skills?.tools?.length ?? 0);
   if (skillCount >= 8) score += 10;
   else tipList.push(tips.skills);
 

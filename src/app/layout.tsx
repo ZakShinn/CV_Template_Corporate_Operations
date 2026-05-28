@@ -1,51 +1,55 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { appConfig } from "@/config/app";
-import { DEFAULT_AVATAR_SRC } from "@/avatar/config";
-import { resumeData } from "@/data/resume";
-import { getThemeCssBlock } from "@/color/theme";
-import { getFontCssBlock } from "@/font/config";
+import { appConfig, configSeo } from "@/config";
+import { resumeData } from "@/resume";
+import { AVATAR_PATH } from "@/avatar";
+import { getThemeCssBlock } from "@/color";
+import { getFontCssBlock } from "@/font";
 import { buildPersonJsonLd } from "@/lib/seo";
 import "./globals.css";
 
+/** Phải khớp src/font.ts — next/font yêu cầu giá trị literal tại đây */
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
   variable: "--font-inter",
   display: "swap",
 });
 
+const blockIndex = configSeo.blockSearchEngines;
+
 export const metadata: Metadata = {
   title: appConfig.name,
   description: appConfig.description,
   metadataBase: new URL(appConfig.siteUrl),
-  openGraph: {
-    title: appConfig.name,
-    description: appConfig.description,
-    type: "website",
-    url: appConfig.siteUrl,
-    locale: "vi_VN",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: appConfig.name,
-    description: appConfig.description,
-  },
-  robots: { index: true, follow: true },
+  robots: blockIndex
+    ? { index: false, follow: false, googleBot: { index: false, follow: false } }
+    : { index: true, follow: true },
+  openGraph: blockIndex
+    ? undefined
+    : {
+        title: appConfig.name,
+        description: appConfig.description,
+        type: "website",
+        url: appConfig.siteUrl,
+        locale: "vi_VN",
+      },
   icons: {
-    icon: DEFAULT_AVATAR_SRC,
-    shortcut: DEFAULT_AVATAR_SRC,
-    apple: DEFAULT_AVATAR_SRC,
+    icon: AVATAR_PATH,
+    shortcut: AVATAR_PATH,
+    apple: AVATAR_PATH,
   },
 };
 
-const personJsonLd = buildPersonJsonLd({
-  name: resumeData.personal.fullName,
-  jobTitle: resumeData.personal.jobTitle,
-  email: resumeData.personal.contact.email,
-  url: resumeData.personal.contact.portfolio,
-  address: resumeData.personal.contact.location,
-});
+const personJsonLd = blockIndex
+  ? null
+  : buildPersonJsonLd({
+      name: resumeData.personal.fullName,
+      jobTitle: resumeData.personal.jobTitle,
+      email: resumeData.personal.contact.email,
+      url: resumeData.personal.contact.portfolio,
+      address: resumeData.personal.contact.location,
+    });
 
 export default function RootLayout({
   children,
@@ -55,10 +59,12 @@ export default function RootLayout({
   return (
     <html lang={appConfig.htmlLang} suppressHydrationWarning>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
+        {personJsonLd && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          />
+        )}
         <style
           dangerouslySetInnerHTML={{
             __html: `${getThemeCssBlock()}\n${getFontCssBlock()}`,

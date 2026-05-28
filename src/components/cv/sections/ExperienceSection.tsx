@@ -2,7 +2,7 @@
 
 import { SectionHeading } from "../ui/SectionHeading";
 import { formatDateRange } from "@/lib/utils";
-import { sectionTitle, t } from "@/config/i18n";
+import { sectionTitle, t } from "@/config";
 import type { CVSettings, WorkExperience } from "@/types/resume";
 
 interface ExperienceSectionProps {
@@ -12,6 +12,7 @@ interface ExperienceSectionProps {
 
 export function ExperienceSection({ experience, settings }: ExperienceSectionProps) {
   const showLabels = settings.variant === "tech-operations";
+  if (!experience?.length) return null;
 
   return (
     <section className="cv-section mb-6" aria-labelledby="section-experience">
@@ -65,7 +66,7 @@ export function ExperienceSection({ experience, settings }: ExperienceSectionPro
               </time>
             </div>
 
-            {job.responsibilities.length > 0 && (
+            {(job.responsibilities?.length ?? 0) > 0 && (
               <div className="mt-2">
                 {showLabels && (
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400 mb-1">
@@ -73,14 +74,14 @@ export function ExperienceSection({ experience, settings }: ExperienceSectionPro
                   </p>
                 )}
                 <ul className="list-disc list-outside ml-4 space-y-1 text-sm text-slate-700 dark:text-slate-300">
-                  {job.responsibilities.map((item, i) => (
+                  {(job.responsibilities ?? []).map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {job.achievements.length > 0 && (
+            {(job.achievements?.length ?? 0) > 0 && (
               <div className="mt-2">
                 {showLabels && (
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400 mb-1">
@@ -88,7 +89,7 @@ export function ExperienceSection({ experience, settings }: ExperienceSectionPro
                   </p>
                 )}
                 <ul className="list-disc list-outside ml-4 space-y-1 text-sm text-slate-800 dark:text-slate-200">
-                  {job.achievements.map((item, i) => (
+                  {(job.achievements ?? []).map((item, i) => (
                     <li key={i} className="marker:text-slate-400">
                       {item}
                     </li>

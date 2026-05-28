@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { resumeData } from "@/data/resume";
-import { defaultCVSettings } from "@/config/cv-defaults";
+import { resumeData } from "@/resume";
+import { defaultCVSettings } from "@/config";
 import type { CVSettings, ResumeData, SectionId } from "@/types/resume";
 
 interface CVStore {

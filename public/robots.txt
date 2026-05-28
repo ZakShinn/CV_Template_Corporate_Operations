@@ -1,0 +1,3 @@
+# Chặn lập chỉ mục — đồng bộ với configSeo.blockSearchEngines trong src/config.ts
+User-agent: *
+Disallow: /

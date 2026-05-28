@@ -1,6 +1,6 @@
 "use client";
 
-import { pageBackground } from "@/config/background";
+import { pageBackground } from "@/color";
 
 /**
  * Nền corporate cho vùng editor — không in ra PDF, không chặn tương tác

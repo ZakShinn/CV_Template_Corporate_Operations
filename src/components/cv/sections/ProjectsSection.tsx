@@ -3,7 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { SectionHeading } from "../ui/SectionHeading";
 import { cn, accentClasses, ensureUrl } from "@/lib/utils";
-import { sectionTitle, t } from "@/config/i18n";
+import { sectionTitle, t } from "@/config";
 import type { CVSettings, Project } from "@/types/resume";
 
 interface ProjectsSectionProps {
@@ -13,6 +13,7 @@ interface ProjectsSectionProps {
 
 export function ProjectsSection({ projects, settings }: ProjectsSectionProps) {
   const colors = accentClasses(settings.accent, settings.theme);
+  if (!projects?.length) return null;
 
   return (
     <section className="cv-section mb-6" aria-labelledby="section-projects">
@@ -48,10 +49,12 @@ export function ProjectsSection({ projects, settings }: ProjectsSectionProps) {
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
               {project.description}
             </p>
-            <p className="text-xs text-slate-500 mt-1.5">
-              <span className="font-medium">{t(settings.locale, "technologies")}: </span>
-              {project.technologies.join(", ")}
-            </p>
+            {project.technologies?.length ? (
+              <p className="text-xs text-slate-500 mt-1.5">
+                <span className="font-medium">{t(settings.locale, "technologies")}: </span>
+                {project.technologies.join(", ")}
+              </p>
+            ) : null}
             {project.achievements.length > 0 && (
               <ul className="list-disc list-outside ml-4 mt-2 space-y-0.5 text-sm text-slate-700 dark:text-slate-300">
                 {project.achievements.map((a, i) => (
