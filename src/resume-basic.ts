@@ -12,6 +12,7 @@ export const resumeBasic: ResumeBasicSource = {
     tagline:
       "System Operations • Infrastructure Management • Digital Operations",
     contact: {
+      email: "nghiasoothsayer@gmail.com",
       phone: "0968 884 946",
       dateOfBirth: "06/09/1996",
       github: "github.com/ZakShinn",
