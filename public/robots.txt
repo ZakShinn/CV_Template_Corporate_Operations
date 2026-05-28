@@ -1,3 +1,11 @@
-# Chặn lập chỉ mục — đồng bộ với configSeo.blockSearchEngines trong src/config.ts
+# Dự phòng khi host tĩnh — cấu hình chính: src/config.ts → configSeo.blockSearchEngines
+# Next.js còn phát sinh /robots.txt từ src/app/robots.ts khi chạy npm run build
+
 User-agent: *
+Disallow: /
+
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Googlebot-Image
 Disallow: /

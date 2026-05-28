@@ -81,14 +81,15 @@ function normalizePersonal(raw?: ResumeBasicSource["personal"]): PersonalInfo {
 }
 
 function normalizeExperienceItem(
-  raw: NonNullable<ResumeBasicSource["experience"]>[number]
+  raw: NonNullable<ResumeBasicSource["experience"]>[number],
+  index: number
 ): WorkExperience | null {
   const company = str(raw.company);
   const position = str(raw.position);
   if (!company && !position) return null;
 
   return {
-    id: str(raw.id, `exp-${Math.random().toString(36).slice(2, 9)}`),
+    id: str(raw.id) || `exp-${index + 1}`,
     company: company || "—",
     position: position || "—",
     ...(str(raw.location) ? { location: str(raw.location) } : {}),
@@ -103,14 +104,21 @@ function normalizeExperience(
   raw: ResumeBasicSource["experience"]
 ): WorkExperience[] {
   return arr(raw)
-    .map(normalizeExperienceItem)
+    .map((item, index) => normalizeExperienceItem(item, index))
     .filter((e): e is WorkExperience => e !== null);
 }
 
 function normalizeSkills(raw: ResumeBasicSource["skills"]): ResumeData["skills"] {
   const s = raw ?? {};
-  const pick = (items?: SkillItem[]) =>
-    arr(items).filter((item) => str(item?.name).length > 0);
+  const pick = (
+    items?: Array<{ name?: string; level?: number }>
+  ): SkillItem[] =>
+    arr(items)
+      .map((item) => ({
+        name: str(item?.name),
+        ...(typeof item?.level === "number" ? { level: item.level } : {}),
+      }))
+      .filter((item) => item.name.length > 0);
 
   return {
     technical: pick(s.technical),
@@ -121,12 +129,17 @@ function normalizeSkills(raw: ResumeBasicSource["skills"]): ResumeData["skills"]
   };
 }
 
-function normalizeEducation(raw?: Education[]): Education[] {
+function normalizeEducation(
+  raw?: NonNullable<ResumeBasicSource["education"]>
+): Education[] {
   return arr(raw)
-    .filter((e) => str(e.university) || str(e.degree))
-    .map((e) => ({
-      id: e.id,
-      university: str(e.university),
+    .filter(
+      (e) =>
+        str(e.university) || str(e.degree) || str(e.major) || str(e.description)
+    )
+    .map((e, index) => ({
+      id: str(e.id) || `edu-${index + 1}`,
+      university: str(e.university) || "—",
       degree: str(e.degree),
       major: str(e.major),
       graduationYear: str(e.graduationYear),
@@ -135,31 +148,57 @@ function normalizeEducation(raw?: Education[]): Education[] {
     }));
 }
 
-function normalizeCertifications(raw?: Certification[]): Certification[] {
-  return arr(raw).filter((c) => str(c.name));
+function normalizeCertifications(
+  raw?: NonNullable<ResumeBasicSource["certifications"]>
+): Certification[] {
+  return arr(raw)
+    .filter((c) => str(c.name))
+    .map((c, index) => ({
+      id: str(c.id) || `cert-${index + 1}`,
+      name: str(c.name),
+      issuer: str(c.issuer) || "—",
+      year: str(c.year),
+      ...(str(c.credentialId) ? { credentialId: str(c.credentialId) } : {}),
+    }));
 }
 
-function normalizeLanguages(raw?: Language[]): Language[] {
-  return arr(raw).filter((l) => str(l.name));
+function normalizeLanguages(
+  raw?: NonNullable<ResumeBasicSource["languages"]>
+): Language[] {
+  return arr(raw)
+    .filter((l) => str(l.name))
+    .map((l, index) => ({
+      id: str(l.id) || `lang-${index + 1}`,
+      name: str(l.name),
+      level: str(l.level),
+      proficiency: typeof l.proficiency === "number" ? l.proficiency : 0,
+    }));
 }
 
-function normalizeProjects(raw?: Project[]): Project[] {
+function normalizeProjects(
+  raw?: NonNullable<ResumeAdvancedSource["projects"]>
+): Project[] {
   return arr(raw)
     .filter((p) => str(p.name))
-    .map((p) => ({
-      ...p,
+    .map((p, index) => ({
+      id: str(p.id) || `proj-${index + 1}`,
+      name: str(p.name),
       description: str(p.description),
       technologies: arr(p.technologies).filter(Boolean),
       achievements: cleanTextLines(p.achievements),
       ...(str(p.githubUrl) ? { githubUrl: str(p.githubUrl) } : {}),
+      ...(str(p.link) ? { link: str(p.link) } : {}),
     }));
 }
 
-function normalizeInitiatives(raw?: Initiative[]): Initiative[] {
+function normalizeInitiatives(
+  raw?: NonNullable<ResumeAdvancedSource["initiatives"]>
+): Initiative[] {
   return arr(raw)
     .filter((i) => str(i.name))
-    .map((i) => ({
-      ...i,
+    .map((i, index) => ({
+      id: str(i.id) || `init-${index + 1}`,
+      name: str(i.name),
       description: str(i.description),
       achievements: cleanTextLines(i.achievements),
       ...(str(i.organization) ? { organization: str(i.organization) } : {}),

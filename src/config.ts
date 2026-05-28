@@ -28,10 +28,7 @@ export const configBasic = {
   },
 };
 
-/** Chặn Google / công cụ tìm kiếm lập chỉ mục */
-export const configSeo = {
-  blockSearchEngines: true,
-};
+export { configSeo } from "./config-seo";
 
 export const configFeatures = {
   showToolbar: true,

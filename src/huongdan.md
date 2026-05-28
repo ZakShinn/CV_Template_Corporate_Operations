@@ -59,6 +59,31 @@ initiatives: [
 
 Không cần sửa file khác — `normalize-resume.ts` xử lý khi build CV.
 
+- Có thể **xóa cả mục** trong mảng (một trường `experience`, `education`…) — không bắt buộc giữ `id`.
+- Có thể **xóa cả khối** `certifications`, `projects`, `languages` — app vẫn chạy, mục trống tự ẩn.
+
+## Chặn Google / tìm kiếm
+
+Trong **`config.ts`**:
+
+```ts
+export const configSeo = {
+  blockSearchEngines: true,  // true = chặn Google, Bing…
+};
+```
+
+Khi `true`, hệ thống bật đồng thời:
+
+| Lớp bảo vệ | File |
+|------------|------|
+| Cấu hình bật/tắt | `src/config.ts` → `configSeo.blockSearchEngines` |
+| Meta `noindex` | `src/app/layout.tsx` + `src/lib/search-block.ts` |
+| `robots.txt` | `src/app/robots.ts` (ưu tiên khi deploy Next.js) |
+| Header HTTP | `next.config.ts` → `X-Robots-Tag` |
+| Dự phòng tĩnh | `public/robots.txt` |
+
+**Lưu ý:** Trang đã bị Google index trước đó cần gỡ trong [Google Search Console](https://search.google.com/search-console). `noindex` chỉ ngăn index mới.
+
 ## Quy trình nhanh
 
 1. `public/avatar/avatar.jpg` — ảnh của bạn  

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { appConfig, configSeo } from "@/config";
+import { appConfig } from "@/config";
 import { resumeData } from "@/resume";
 import { AVATAR_PATH } from "@/avatar";
 import { getThemeCssBlock } from "@/color";
 import { getFontCssBlock } from "@/font";
 import { buildPersonJsonLd } from "@/lib/seo";
+import { getSearchBlockMetadata, isSearchBlocked } from "@/lib/search-block";
 import "./globals.css";
 
 /** Phải khớp src/font.ts — next/font yêu cầu giá trị literal tại đây */
@@ -16,24 +17,26 @@ const inter = Inter({
   display: "swap",
 });
 
-const blockIndex = configSeo.blockSearchEngines;
+const blockIndex = isSearchBlocked();
+const searchBlock = getSearchBlockMetadata();
 
 export const metadata: Metadata = {
   title: appConfig.name,
   description: appConfig.description,
   metadataBase: new URL(appConfig.siteUrl),
-  robots: blockIndex
-    ? { index: false, follow: false, googleBot: { index: false, follow: false } }
-    : { index: true, follow: true },
-  openGraph: blockIndex
-    ? undefined
+  ...searchBlock,
+  ...(blockIndex
+    ? {}
     : {
-        title: appConfig.name,
-        description: appConfig.description,
-        type: "website",
-        url: appConfig.siteUrl,
-        locale: "vi_VN",
-      },
+        robots: { index: true, follow: true },
+        openGraph: {
+          title: appConfig.name,
+          description: appConfig.description,
+          type: "website",
+          url: appConfig.siteUrl,
+          locale: "vi_VN",
+        },
+      }),
   icons: {
     icon: AVATAR_PATH,
     shortcut: AVATAR_PATH,

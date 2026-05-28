@@ -1,17 +1,8 @@
-import type {
-  Certification,
-  Education,
-  Initiative,
-  Language,
-  Locale,
-  Project,
-  SkillItem,
-  WorkExperience,
-} from "./resume";
+import type { Locale } from "./resume";
 
 /**
  * Kiểu nguồn khi chỉnh resume-basic / resume-advanced.
- * Mọi trường đều optional — có thể xóa dòng không cần mà không lỗi TypeScript.
+ * Mọi trường đều optional — có thể xóa dòng/mục không cần mà không lỗi TypeScript.
  */
 export type ResumeBasicSource = {
   locale?: Locale;
@@ -33,7 +24,7 @@ export type ResumeBasicSource = {
   };
   summary?: string;
   experience?: Array<{
-    id: string;
+    id?: string;
     company?: string;
     position?: string;
     location?: string;
@@ -43,20 +34,55 @@ export type ResumeBasicSource = {
     achievements?: string[];
   }>;
   skills?: {
-    technical?: SkillItem[];
-    soft?: SkillItem[];
-    tools?: SkillItem[];
-    infrastructure?: SkillItem[];
-    management?: SkillItem[];
+    technical?: Array<{ name?: string; level?: number }>;
+    soft?: Array<{ name?: string; level?: number }>;
+    tools?: Array<{ name?: string; level?: number }>;
+    infrastructure?: Array<{ name?: string; level?: number }>;
+    management?: Array<{ name?: string; level?: number }>;
   };
-  education?: Education[];
-  certifications?: Certification[];
-  languages?: Language[];
+  education?: Array<{
+    id?: string;
+    university?: string;
+    degree?: string;
+    major?: string;
+    gpa?: string;
+    graduationYear?: string;
+    description?: string;
+  }>;
+  certifications?: Array<{
+    id?: string;
+    name?: string;
+    issuer?: string;
+    year?: string;
+    credentialId?: string;
+  }>;
+  languages?: Array<{
+    id?: string;
+    name?: string;
+    level?: string;
+    proficiency?: number;
+  }>;
 };
 
 export type ResumeAdvancedSource = {
-  projects?: Project[];
-  initiatives?: Initiative[];
+  projects?: Array<{
+    id?: string;
+    name?: string;
+    description?: string;
+    technologies?: string[];
+    achievements?: string[];
+    githubUrl?: string;
+    link?: string;
+  }>;
+  initiatives?: Array<{
+    id?: string;
+    name?: string;
+    organization?: string;
+    period?: string;
+    description?: string;
+    achievements?: string[];
+    link?: string;
+  }>;
   display?: {
     showSkillProgressBars?: boolean;
     showLanguageProgressBars?: boolean;
