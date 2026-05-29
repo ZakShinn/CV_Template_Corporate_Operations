@@ -1,10 +1,10 @@
 import type { CVSettings, Locale, SectionId } from "@/types/resume";
-import { sidebarSectionIds } from "@/resume";
 
 /**
  * ═══════════════════════════════════════════════════════════════
  *  CẤU HÌNH TRANG WEB
  *  • basic    — tên site, footer, ngôn ngữ
+ *  • sections — bật/tắt mục CV, tự ẩn khi trống
  *  • advanced — layout CV, theme, bật/tắt tính năng editor
  *  Hướng dẫn: src/huongdan.md
  * ═══════════════════════════════════════════════════════════════
@@ -29,6 +29,112 @@ export const configBasic = {
 };
 
 export { configSeo } from "./config-seo";
+
+/**
+ * Tra cứu tên mục trên CV (tiếng Việt) và nơi nhập dữ liệu.
+ * Dùng kèm `configSections.visibleSections` bên dưới.
+ */
+export const sectionVisibilityMeta: Record<
+  SectionId,
+  { titleVi: string; dataSource: string }
+> = {
+  summary: {
+    titleVi: "Tóm tắt năng lực",
+    dataSource: "resume-basic.ts → summary",
+  },
+  experience: {
+    titleVi: "Kinh nghiệm làm việc",
+    dataSource: "resume-basic.ts → experience",
+  },
+  skills: {
+    titleVi: "Kỹ năng",
+    dataSource: "resume-basic.ts → skills",
+  },
+  education: {
+    titleVi: "Học vấn",
+    dataSource: "resume-basic.ts → education",
+  },
+  certifications: {
+    titleVi: "Chứng chỉ",
+    dataSource: "resume-basic.ts → certifications",
+  },
+  projects: {
+    titleVi: "Dự án",
+    dataSource: "resume-advanced.ts → projects",
+  },
+  initiatives: {
+    titleVi: "Đề án & Chương trình",
+    dataSource: "resume-advanced.ts → initiatives",
+  },
+  languages: {
+    titleVi: "Ngôn ngữ",
+    dataSource: "resume-basic.ts → languages",
+  },
+};
+
+/**
+ * Bật/tắt từng mục CV và tự ẩn mục không có nội dung.
+ *
+ * | Khóa (id)        | Tiêu đề trên CV        | Cấu hình hiện tại |
+ * |------------------|------------------------|-------------------|
+ * | summary          | Tóm tắt năng lực       | HIỆN (true)       |
+ * | experience       | Kinh nghiệm làm việc   | HIỆN (true)       |
+ * | skills           | Kỹ năng                | HIỆN (true)       |
+ * | education        | Học vấn                | HIỆN (true)       |
+ * | certifications   | Chứng chỉ              | ẨN (false)        |
+ * | projects         | Dự án                  | HIỆN (true)       |
+ * | initiatives      | Đề án & Chương trình   | ẨN (false)        |
+ * | languages        | Ngôn ngữ               | HIỆN (true)       |
+ *
+ * Quy tắc:
+ * - `false` → luôn ẩn mục đó (kể cả đã nhập dữ liệu).
+ * - `true` + `hideWhenEmpty: true` → chỉ hiện khi có nội dung; trống thì tự ẩn.
+ * - Ghi đè tùy chọn: resume-advanced.ts → display.visibleSections
+ */
+export const configSections = {
+  /** true = tự ẩn mục trống; false = vẫn hiện khung mục nếu visibleSections[id] = true */
+  hideWhenEmpty: true,
+  visibleSections: {
+    /** HIỆN — Tóm tắt năng lực */
+    summary: true,
+    /** HIỆN — Kinh nghiệm làm việc */
+    experience: true,
+    /** HIỆN — Kỹ năng */
+    skills: true,
+    /** HIỆN — Học vấn */
+    education: true,
+    /** ẨN — Chứng chỉ (đổi true nếu muốn hiện khi đã có chứng chỉ) */
+    certifications: false,
+    /** HIỆN — Dự án */
+    projects: true,
+    /** ẨN — Đề án & Chương trình (đổi true khi có initiatives trong resume-advanced) */
+    initiatives: false,
+    /** HIỆN — Ngôn ngữ */
+    languages: true,
+  } satisfies Partial<Record<SectionId, boolean>>,
+};
+
+const allSectionsTrue = (): Record<SectionId, boolean> => ({
+  summary: true,
+  experience: true,
+  skills: true,
+  education: true,
+  certifications: true,
+  projects: true,
+  initiatives: true,
+  languages: true,
+});
+
+/** Gộp config + ghi đè từ resume-advanced (nếu có) */
+export function resolveVisibleSections(
+  override?: Partial<Record<SectionId, boolean>>
+): Record<SectionId, boolean> {
+  return {
+    ...allSectionsTrue(),
+    ...configSections.visibleSections,
+    ...override,
+  };
+}
 
 export const configFeatures = {
   showToolbar: true,
@@ -67,10 +173,11 @@ export const configAdvanced = {
     theme: "light",
     accent: "navy",
     sectionOrder: [...defaultSectionOrder],
+    sections: configSections,
   } satisfies Pick<
     CVSettings,
     "layout" | "variant" | "theme" | "accent" | "sectionOrder"
-  >,
+  > & { sections: typeof configSections },
   features: configFeatures,
 };
 
@@ -85,7 +192,15 @@ export const defaultCVSettings: CVSettings = {
   showProfileScore: configFeatures.enableProfileScore,
 };
 
-export { sidebarSectionIds, defaultSectionOrder };
+/** Mục thường đặt cột phụ (layout 2 cột) */
+export const sidebarSectionIds: SectionId[] = [
+  "skills",
+  "education",
+  "certifications",
+  "languages",
+];
+
+export { defaultSectionOrder };
 
 /** Gộp cấu hình (tương thích code cũ: appConfig) */
 export const appConfig = {

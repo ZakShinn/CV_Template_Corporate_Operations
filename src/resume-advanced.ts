@@ -1,3 +1,4 @@
+import { configSections, resolveVisibleSections } from "@/config";
 import type { ResumeAdvancedSource } from "@/types/resume-source";
 
 /**
@@ -54,40 +55,23 @@ export const resumeAdvanced: ResumeAdvancedSource = {
   display: {
     showSkillProgressBars: false,
     showLanguageProgressBars: false,
-    visibleSections: {
-      summary: true,
-      experience: true,
-      skills: true,
-      education: true,
-      certifications: false,
-      projects: true,
-      initiatives: false,
-      languages: true,
-    },
+    // Ẩn/HIỆN từng mục CV: src/config.ts → configSections.visibleSections
+    // (bảng đầy đủ: summary, experience, skills, education, certifications,
+    //  projects, initiatives, languages — xem huongdan.md)
   },
 };
 
 const defaultDisplay = {
   showSkillProgressBars: false,
   showLanguageProgressBars: false,
-  visibleSections: {
-    summary: true,
-    experience: true,
-    skills: true,
-    education: true,
-    certifications: false,
-    projects: true,
-    initiatives: false,
-    languages: true,
-  },
 };
 
 /** Alias — dùng trong component (thanh %, ẩn mục) */
 export const resumeAdvancedDisplay = {
   ...defaultDisplay,
   ...resumeAdvanced.display,
-  visibleSections: {
-    ...defaultDisplay.visibleSections,
-    ...(resumeAdvanced.display?.visibleSections ?? {}),
-  },
+  hideWhenEmpty: configSections.hideWhenEmpty,
+  visibleSections: resolveVisibleSections(
+    resumeAdvanced.display?.visibleSections
+  ),
 };

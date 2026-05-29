@@ -305,9 +305,12 @@ export function hasSectionContent(data: ResumeData, sectionId: SectionId): boole
 export function filterSectionsToRender(
   order: SectionId[],
   data: ResumeData,
-  visible: Record<SectionId, boolean>
+  visible: Record<SectionId, boolean>,
+  hideWhenEmpty = true
 ): SectionId[] {
-  return order.filter(
-    (id) => (visible[id] ?? true) && hasSectionContent(data, id)
-  );
+  return order.filter((id) => {
+    if (!(visible[id] ?? true)) return false;
+    if (hideWhenEmpty && !hasSectionContent(data, id)) return false;
+    return true;
+  });
 }

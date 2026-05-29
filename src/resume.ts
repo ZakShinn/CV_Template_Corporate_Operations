@@ -1,3 +1,4 @@
+import { sidebarSectionIds } from "@/config";
 import { resumeBasic } from "@/resume-basic";
 import { resumeAdvanced, resumeAdvancedDisplay } from "@/resume-advanced";
 import {
@@ -5,6 +6,8 @@ import {
   filterSectionsToRender,
 } from "@/lib/normalize-resume";
 import type { ResumeData, SectionId } from "@/types/resume";
+
+export { sidebarSectionIds } from "@/config";
 
 export { resumeBasic } from "@/resume-basic";
 export {
@@ -20,19 +23,17 @@ export function buildResumeData(): ResumeData {
 export const resumeData = buildResumeData();
 
 export function isSectionVisible(sectionId: SectionId): boolean {
-  return resumeAdvancedDisplay.visibleSections[sectionId as keyof typeof resumeAdvancedDisplay.visibleSections] ?? true;
+  return resumeAdvancedDisplay.visibleSections[sectionId] ?? true;
 }
 
 export function filterVisibleSections(
   order: SectionId[],
   data: ResumeData = resumeData
 ): SectionId[] {
-  return filterSectionsToRender(order, data, resumeAdvancedDisplay.visibleSections as Record<SectionId, boolean>);
+  return filterSectionsToRender(
+    order,
+    data,
+    resumeAdvancedDisplay.visibleSections,
+    resumeAdvancedDisplay.hideWhenEmpty
+  );
 }
-
-export const sidebarSectionIds: SectionId[] = [
-  "skills",
-  "education",
-  "certifications",
-  "languages",
-];
